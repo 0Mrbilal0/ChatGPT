@@ -1,8 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {OpenAI} from "openai";
-import {Messages} from "openai/resources/beta/threads";
-import MessageContentText = Messages.MessageContentText;
-import MessageContentImageFile = Messages.MessageContentImageFile;
 
 const openai = new OpenAI({
     apiKey: "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",
@@ -14,7 +11,6 @@ export default function Chat() {
     const [question, setQuestion] = useState<string>('')
     const [assistantId, setAssistantId] = useState<string>('')
     const [threadId, setThreadId] = useState<string>('')
-    const [response, setResponse] = useState<MessageContentImageFile | MessageContentText>('')
 
     const createAssistant = async () => {
         console.log('Creating assistant')
@@ -70,7 +66,6 @@ export default function Chat() {
 
                 if (lastMessageForRun) {
                     console.table(`Assistant: ${JSON.stringify(lastMessageForRun.content[0])} \n`)
-                    setResponse(lastMessageForRun.content[0])
                 }
                 keepAsking = false
             }
@@ -85,7 +80,6 @@ export default function Chat() {
 
     return (
         <main className={'ps-3 m-3'}>
-            <p>{response.type}</p>
             <input type="text" onChange={(e) => setQuestion(e.currentTarget.value)}
                    onKeyUp={e => e.key === "Enter" && handleAsk()}
             />
