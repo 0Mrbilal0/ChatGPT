@@ -1,13 +1,11 @@
-import React from 'react';
-import './App.css';
-import Chat from "./Components/Chat";
+import Chat from "./Components/Chat.tsx";
 
 function App() {
   return (
-      <div className={'cover-container d-flex w-100 h-100 p-3 mx-auto flex-column'}>
-        <Chat />
+      <div className={'flex justify-center items-end flex-column w-screen h-screen bg-gray-100'}>
+          <Chat />
       </div>
-  );
+  )
 }
 
-export default App;
+export default App
