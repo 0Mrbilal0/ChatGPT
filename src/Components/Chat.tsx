@@ -24,18 +24,18 @@ export default function Chat() {
                     role: "user",
                     content: question
                 }],
-                max_tokens: 100,
-                temperature: 0.7,
+                max_tokens: 2000,
+                temperature: 0,
                 stream: true,
             })
 
             for await (const chunk of streamResponse) {
                 if (chunk.choices[0].delta.content === undefined) return
-                if (chunk.choices[0].delta.content !== '') setIsLoading(false)
                 setResponse((prev: string) => {
                     prev += chunk.choices[0].delta.content
                     return prev
                 })
+                setIsLoading(false)
             }
         } catch (error) {
             console.log(error)
@@ -48,12 +48,12 @@ export default function Chat() {
 
     return (
         <main className='flex flex-col h-full'>
-            <div className="w-[50rem] h-full bg-gray-100 px-5 rounded-xl shadow-lg">
+            <div className="w-[50rem] h-full bg-gray-100 px-5 rounded-xl shadow-lg overflow-y-auto ">
                 <div className="flex justify-center items-center h-full">
                     <div className="text-2xl font-bold text-black">
                         {
                             isLoading
-                                ? <Loading width={60} />
+                                ? <Loading width={60}/>
                                 : <span>{response}</span>
                         }
                     </div>
